@@ -41,15 +41,19 @@ public class RecomendadorCursos {
 
 	}
 	
-	public void avalia() throws TasteException {
-		RecommenderBuilder rb = new Recomendador();
+	public Double avalia(Double avaliacao, Double teste) {
+		Recomendador r = new Recomendador();
 		
 		Avaliador a = new Avaliador();
-		//a.avaliador(path, rb.buildRecommender(this.model));
+		a.setPercentualAvaliacao(avaliacao); //0.9
+		a.setPercentualTeste(teste); //1.0
+		return a.avaliador(path, r);
 		
 	}
 
 	public List<RecommendedItem> recomenda(String path, Integer user, Integer quantidade) {
+		
+		this.path = path;
 		List<RecommendedItem> recommendations = null;
 
 		try {

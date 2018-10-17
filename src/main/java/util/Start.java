@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 
+import controle.Recomendador;
 import controle.RecomendadorCursos;
 
 public class Start {
@@ -16,6 +17,10 @@ public class Start {
 		for (RecommendedItem recommendation : recommendations) {
 			System.out.println(recommendation);
 		}
+		
+		
+		System.out.println(rc.avalia(0.9, 1.0));
+		
 		
 		
 		
