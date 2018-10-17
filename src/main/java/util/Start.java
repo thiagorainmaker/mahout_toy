@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 
-import controle.Recomendador;
 import controle.RecomendadorCursos;
 
 public class Start {
@@ -18,22 +17,7 @@ public class Start {
 			System.out.println(recommendation);
 		}
 		
-		
 		System.out.println(rc.avalia(0.9, 1.0));
-		
-		
-		
-		
-//		Avaliador a = new Avaliador();
-//		RecommenderBuilder r = new Recomendador();
-//		
-//		a.avaliador("cursos.txt", builder);
-//		
-//		
-//		RecomendadorCursos rc = new RecomendadorCursos();
-//		List<RecommendedItem> recommendations = rc.recomenda("cursos.txt", 1, 2);
-//		
-
 	}
 
 }

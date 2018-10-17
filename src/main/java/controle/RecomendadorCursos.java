@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.mahout.cf.taste.common.TasteException;
-import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.ThresholdUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
@@ -13,12 +12,15 @@ import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
+import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
 public class RecomendadorCursos {
 
 	private DataModel model;
 	private String path;
+	private UserBasedRecommender recommender;
+	private Recomendador rec;
 
 	
 	
@@ -42,12 +44,11 @@ public class RecomendadorCursos {
 	}
 	
 	public Double avalia(Double avaliacao, Double teste) {
-		Recomendador r = new Recomendador();
 		
 		Avaliador a = new Avaliador();
 		a.setPercentualAvaliacao(avaliacao); //0.9
 		a.setPercentualTeste(teste); //1.0
-		return a.avaliador(path, r);
+		return a.avaliador(path, rec);
 		
 	}
 
@@ -55,6 +56,7 @@ public class RecomendadorCursos {
 		
 		this.path = path;
 		List<RecommendedItem> recommendations = null;
+		 rec = new Recomendador();
 
 		try {
 			DataModel model = this.createDataModel(path);
@@ -62,7 +64,7 @@ public class RecomendadorCursos {
 			UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
 			UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
 
-			GenericUserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
+			recommender = rec.buildRecommender(model);//new GenericUserBasedRecommender(model, neighborhood, similarity);
 			recommendations = recommender.recommend(user, quantidade);
 
 		} catch (TasteException e) {
